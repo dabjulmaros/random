@@ -19,7 +19,20 @@
 
 //Could be made into an extension or something
 function findAtHome(url = window.location.href) {
-  const homeSearch = '//reddthat.com/search?'
+  const home = '//reddthat.com'
+  if(url.includes(home))
+    return;
+    
+  if (url.includes("/post/"))
+    findPostAtHome(home, url)
+  else if (url.includes('/c/'))
+    findCommAtHome(home);
+
+  // works if popups are allowed
+  // window.open(homeSearch + param.toString(), '_blank', 'noopener, noreferrer');
+}
+
+function findPostAtHome(home, url) {
   const param = new URLSearchParams({
     q: url,
     type: "Url"
@@ -30,12 +43,27 @@ function findAtHome(url = window.location.href) {
   ancher.target = "_blank"
   ancher.style.marginLeft = ".5rem"
   ancher.rel = 'noopener, noreferrer';
-  ancher.href = homeSearch + param.toString();
+  ancher.href = home + "/search?" + param.toString();
 
   [...document.querySelectorAll('.post-title a.d-inline')].forEach(e => {
     e.parentNode.appendChild(ancher.cloneNode(true));
   })
+}
 
-  // works if popups are allowed
-  // window.open(homeSearch + param.toString(), '_blank', 'noopener, noreferrer');
+function findCommAtHome(home){
+  const alertBox = document.querySelector('.alert code.user-select-all')
+  const postLink = document.querySelector('.mb-2 .community-link');
+
+  const comm = alertBox.textContent.substring(1);
+
+  const ancher = document.createElement('a');
+  ancher.textContent = "Find @ Home"
+  ancher.target = "_blank"
+  ancher.style.marginLeft = ".5rem"
+  ancher.rel = 'noopener, noreferrer';
+  ancher.href = home + "/c/" + comm;
+
+  alertBox.parentNode.appendChild(ancher.cloneNode(true));
+  postLink.parentNode.appendChild(ancher.cloneNode(true));
+
 }
