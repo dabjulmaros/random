@@ -20,9 +20,11 @@
 //Could be made into an extension or something
 function findAtHome(url = window.location.href) {
   const home = '//reddthat.com'
-  if(url.includes(home))
+  if (url.includes(home))
     return;
-    
+
+  url = url.split('?')[0]
+
   if (url.includes("/post/"))
     findPostAtHome(home, url)
   else if (url.includes('/c/'))
@@ -45,12 +47,12 @@ function findPostAtHome(home, url) {
   ancher.rel = 'noopener, noreferrer';
   ancher.href = home + "/search?" + param.toString();
 
-  [...document.querySelectorAll('.post-title a.d-inline')].forEach(e => {
+  [...document.querySelectorAll('.post-title a')].forEach(e => {
     e.parentNode.appendChild(ancher.cloneNode(true));
   })
 }
 
-function findCommAtHome(home){
+function findCommAtHome(home) {
   const alertBox = document.querySelector('.alert code.user-select-all')
   const postLink = document.querySelector('.mb-2 .community-link');
 
