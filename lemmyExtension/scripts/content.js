@@ -7,10 +7,8 @@ async function findAtHome(url = window.location.href) {
 
   await chrome.storage.local.get(["home"]).then((result) => {
     home = result.home
-    console.log("Value currently is " + JSON.stringify(result));
   });
 
-  console.log(home)
   if (url.includes(home) || home == "")
     return;
 
