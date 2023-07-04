@@ -1,0 +1,20 @@
+* {
+  margin: 0.5rem;
+}
+html {
+  margin: 0;
+}
+
+body {
+  width: 25ch;
+}
+
+input {
+  width: calc(100% - 1.5rem);
+}
+
+.controls {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
