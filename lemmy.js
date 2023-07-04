@@ -18,6 +18,14 @@
 // https://[Home Instance]/search?q=[encodeURIComponent(URL to find)]&type=Url
 
 //Could be made into an extension or something
+//https://stackoverflow.com/questions/27954806/how-to-clear-the-google-chrome-address-bar
+//https://developer.chrome.com/docs/extensions/mv3/getstarted/tut-reading-time/
+//https://developer.chrome.com/docs/extensions/mv3/getstarted/tut-tabs-manager/
+//https://chrome.google.com/webstore/detail/custom-new-tab-url/mmjbdbjnoablegbkcklggeknkfcjkjia
+
+if(document.querySelectorAll("#root > .lemmy-site").length)
+  findAtHome();
+
 function findAtHome(url = window.location.href) {
   const home = '//reddthat.com'
   if (url.includes(home))
