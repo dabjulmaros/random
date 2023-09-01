@@ -7,11 +7,12 @@ const gradebookSvg = "M1801.44118,-3.41060513e-13 L1801.44118,1920 L219.029412,1
     
     if(action && nav && link){
       const clone = action.cloneNode(true);
-      console.log(clone);
       
       clone.href = `${link}/grades`;
+      
       clone.title = `Grades ${clone.title.split(' - ')[1]}`
       clone.querySelector('.screenreader-only').innerText = clone.title;
+
       clone.querySelector('svg').setAttribute('name','IconGradebook');
       clone.querySelector('path').setAttribute('d',gradebookSvg);
 
