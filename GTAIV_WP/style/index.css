@@ -1,19 +1,23 @@
 :root {
   --scenePrimary: #340056;
   --sceneSecondary: #860085;
+  --color: #ffaa01;
 }
 body {
   margin: 0;
   overflow: hidden;
-  color: #ffaa01;
+  color: var(--color);
   font-family: Hedvig;
+}
+a:visited {
+  color: var(--color);
 }
 img {
   position: absolute;
   top: 0;
   left: 0;
-  width: 100vw;
-  height: 100dvh;
+  width: 110%;
+  height: 110%;
   object-fit: cover;
   object-position: center center;
   z-index: -1;
@@ -32,46 +36,27 @@ img {
   left: -2vw;
 }
 
-.text,
-.scan {
-  width: 390px;
-  height: 95px;
-  display: block;
-  position: absolute;
-  top: 181px;
-  left: 50%;
-  transform: translate(-60%);
-}
 .text {
+  position: absolute;
+  top: 10%;
+  left: 50%;
+  transform: translate(-50%);
   display: flex;
   text-transform: uppercase;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: center;
   align-items: center;
 }
+
 .time {
-  font-size: 2.5rem;
+  font-size: 6rem;
+  margin-right: 1rem;
+}
+.weekDay {
+  font-size: 3rem;
 }
 .date {
   font-size: 1.5rem;
-}
-
-body.day span.scan,
-body.night span.scan {
-  transform-origin: center;
-  background: linear-gradient(
-    to bottom,
-    var(--sceneSecondary),
-    var(--sceneSecondary) 2px,
-    var(--scenePrimary),
-    var(--scenePrimary) 3px
-  );
-  background-size: 100% 6px;
-  background-position-y: 0px;
-  filter: blur(0.3px);
-}
-.animate {
-  animation: scan 0.3s linear infinite 27ms;
 }
 
 .sass {
@@ -119,8 +104,8 @@ body.night span.scan {
 
 .search {
   position: absolute;
-  top: 48%;
-  left: 47.5%;
+  top: 50%;
+  left: 50%;
   transform: translate(-50%, -50%);
   padding: 1rem;
   background: var(--scenePrimary);
@@ -158,23 +143,18 @@ body.night span.scan {
   border-bottom: solid 3px var(--scenePrimary);
 }
 
-.search > input:focus-visible + .searchIcon {
-  --iconSecondary: var(--sceneSecondary);
-  --iconColor: var(--sceneColor);
+@media (max-width: 1361px) {
+  :root {
+    font-size: 12px;
+  }
 }
-
-@media (max-width: 800px) {
-  .hero {
-    background-position-x: 47%;
+@media (max-width: 1050px) {
+  :root {
+    font-size: 9px;
   }
-  .text,
-  .scan {
-    transform: translate(-50%);
-    width: 400px;
-    max-width: 100vw;
-  }
-  .search {
-    left: 50%;
+  .text {
+    flex-direction: column;
+    text-align: center;
   }
 }
 @font-face {
