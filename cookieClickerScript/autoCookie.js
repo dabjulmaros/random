@@ -85,6 +85,8 @@ if (ascend) {
         ...document.querySelectorAll(".crate.upgrade.heavenly"),
       ].length;
       window.setTimeout(spendAscend, 1000);
+    } else {
+      Game.Reincarnate(1);
     }
   }
   spendAscend();
