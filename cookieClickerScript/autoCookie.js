@@ -13,7 +13,8 @@
 // Game.Ascend(1);
 
 let autoRun = true;
-let autoAscend = true;
+let autoAscend = false;
+window.setTimeout(() => (autoAscend = true), 1000 * 60 * 60 * 24);
 
 function _auto() {
   // id="ascend"
@@ -102,8 +103,9 @@ function _ascend() {
       } else {
         autoAscend = false;
         autoRun = true;
-        // Game.Reincarnate(1);
-        // window.setTimeout(_auto, 2000);
+        window.setTimeout(() => (autoAscend = true), 1000 * 60 * 60 * 24);
+        Game.Reincarnate(1);
+        window.setTimeout(_auto, 2000);
       }
     }
     _spendAscend();
