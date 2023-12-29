@@ -15,6 +15,7 @@
 let autoRun = true;
 let autoAscend = false;
 window.setTimeout(() => (autoAscend = true), 1000 * 60 * 60 * 24);
+window.setInterval(() => Game.CollectWrinklers(), 1000 * 60 * 60 * 1);
 
 function _auto() {
   // id="ascend"
@@ -29,9 +30,11 @@ function _auto() {
     );
 
     //buy upgrades
-    [...document.querySelectorAll("#store .crate.upgrade.enabled")].forEach(
-      (e) => Game.UpgradesById[e.dataset.id].buy(1)
-    );
+    [
+      ...document.querySelectorAll(
+        "#store div:not(#toggleUpgrades) .crate.upgrade.enabled"
+      ),
+    ].forEach((e) => Game.UpgradesById[e.dataset.id].buy(1));
 
     // click on special cookies
     [...document.querySelector("#shimmers").childNodes].forEach((e) =>
