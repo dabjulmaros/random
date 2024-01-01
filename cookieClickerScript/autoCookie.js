@@ -14,8 +14,44 @@
 
 let autoRun = true;
 let autoAscend = false;
-window.setTimeout(() => (autoAscend = true), 1000 * 60 * 60 * 24);
+// window.setTimeout(() => (autoAscend = true), 1000 * 60 * 60 * 24);
 window.setInterval(() => Game.CollectWrinklers(), 1000 * 60 * 60 * 1);
+
+// add html
+(() => {
+  const container = document.querySelector("#sectionLeft");
+  const autoLabel = document.createElement("label");
+  const autoCheck = document.createElement("input");
+  const ascendButton = document.createElement("button");
+  autoLabel.setAttribute(
+    "style",
+    "display: flex;z-index: 999;position: absolute;align-items:center;"
+  );
+  ascendButton.setAttribute(
+    "style",
+    "display: flex;z-index: 999;position: absolute;align-items:center;top:1.2rem"
+  );
+  autoLabel.innerText = "Auto: ";
+  ascendButton.innerText = "Ascend";
+  autoCheck.type = "checkbox";
+  autoCheck.id = "autoCheckBox";
+  autoLabel.appendChild(autoCheck);
+  autoCheck.onclick = (e) => {
+    if (e.target.checked) {
+      autoRun = true;
+      _auto();
+    } else {
+      autoRun = false;
+    }
+  };
+  ascendButton.onclick = () => {
+    autoRun = false;
+    _ascend();
+  };
+
+  container.appendChild(autoLabel);
+  container.appendChild(ascendButton);
+})();
 
 function _auto() {
   // id="ascend"
@@ -37,12 +73,14 @@ function _auto() {
     ].forEach((e) => Game.UpgradesById[e.dataset.id].buy(1));
 
     // click on special cookies
-    [...document.querySelector("#shimmers").childNodes].forEach((e) =>
-      e.click()
-    );
-    [...document.querySelector("#goldenCookie").childNodes].forEach((e) =>
-      e.click()
-    );
+    [...document.querySelector("#shimmers").childNodes].forEach((e) => {
+      console.log(e);
+      e.click();
+    });
+    [...document.querySelector("#goldenCookie").childNodes].forEach((e) => {
+      console.log(e);
+      e.click();
+    });
     // sugar lumps
     // Game.gainLumps(100)
     // document.querySelectorAll(".row.enabled .productButton.productLevel.lumpsOnly").forEach(e=>e.click())
@@ -105,10 +143,11 @@ function _ascend() {
         window.setTimeout(_spendAscend, 500);
       } else {
         autoAscend = false;
-        autoRun = true;
         window.setTimeout(() => (autoAscend = true), 1000 * 60 * 60 * 24);
-        Game.Reincarnate(1);
-        window.setTimeout(_auto, 2000);
+        // Game.Reincarnate(1);
+
+        // autoRun = document.querySelector("#autoCheckBox").checked;
+        // if (autoRun) window.setTimeout(_auto, 2000);
       }
     }
     _spendAscend();
