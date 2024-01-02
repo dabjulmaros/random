@@ -11,6 +11,7 @@
 //   .forEach((e) => e.click());
 
 // Game.Ascend(1);
+// Game.ruinthefun();//ruin the fun
 
 let autoRun = true;
 let autoAscend = false;
