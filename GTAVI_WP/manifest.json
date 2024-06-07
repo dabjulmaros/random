@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "New Tab Steam Summer 2023",
+  "name": "New Tab GTA VI",
   "version": "1.0",
   "description": "New tab page",
   "icons": {
@@ -12,5 +12,5 @@
   "chrome_url_overrides": {
     "newtab": "index.html"
   },
-   "permissions": ["tabs","search"]
+  "permissions": ["tabs", "search"]
 }

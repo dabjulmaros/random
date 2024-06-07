@@ -1,0 +1,166 @@
+:root {
+  --scenePrimary: #340056;
+  --sceneSecondary: #860085;
+  --color: #ffaa01;
+}
+body {
+  margin: 0;
+  overflow: hidden;
+  color: var(--color);
+  font-family: Hedvig;
+}
+a:visited {
+  color: var(--color);
+}
+img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 110%;
+  height: 110%;
+  object-fit: cover;
+  object-position: center center;
+  z-index: -3;
+}
+
+.front {
+  width: 110vw;
+  height: 110dvh;
+  top: -5dvh;
+  left: -5vw;
+  z-index: -1;
+}
+.middle {
+  width: 105vw;
+  height: 105dvh;
+  top: -0.5dvh;
+  left: -2vw;
+  z-index: -2;
+}
+
+.text {
+  position: absolute;
+  top: 10%;
+  left: 50%;
+  transform: translate(-50%);
+  display: flex;
+  text-transform: uppercase;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  z-index: -1;
+}
+
+.time {
+  font-size: 6rem;
+  margin-right: 1rem;
+}
+.weekDay {
+  font-size: 3rem;
+}
+.date {
+  font-size: 1.5rem;
+}
+
+.sass {
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+  opacity: 0.3;
+}
+.sass:hover {
+  opacity: 1;
+}
+.sass:hover div {
+  opacity: 1;
+  width: 300px;
+  padding: 2rem;
+  border: 5px solid var(--sceneSecondary);
+  transition: opacity 0.3s linear, width 0.3s linear, padding 0s linear,
+    border 0s linear;
+}
+.sass > div {
+  position: absolute;
+  line-height: 2rem;
+  bottom: 0;
+  right: 0;
+  width: 0;
+  height: 10ch;
+  background: var(--scenePrimary);
+  padding: 0;
+  border: 0px solid var(--sceneSecondary);
+  transition: opacity 0.3s linear, width 0.3s linear, padding 0s linear 0.3s,
+    border 0s linear 0.3s;
+  border-radius: 1rem;
+  opacity: 0;
+  overflow: hidden;
+}
+
+.sass > div > ul {
+  z-index: 3;
+  position: absolute;
+  width: 300px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.search {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 1rem;
+  background: var(--scenePrimary);
+  border-radius: 2rem;
+  opacity: 0.7;
+  transition: all 0.3s ease-in-out;
+}
+.search:has(input:focus) {
+  opacity: 1;
+}
+.searchIcon {
+  --icon-size: 4rem;
+  background-image: url(data:image/png;base64,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);
+  position: absolute;
+  top: 6px;
+  left: 10px;
+  background-position: center;
+  width: var(--icon-size);
+  height: var(--icon-size);
+  background-size: var(--icon-size);
+}
+.search input {
+  z-index: 2;
+  position: relative;
+  appearance: none;
+  border: none;
+  outline: none;
+  font-size: 1.5rem;
+  margin: 0 3rem;
+  width: calc(100% - 3rem);
+  line-height: 2rem;
+  color: var(--sceneColor);
+  background: var(--scenePrimary);
+  border-top: solid 3px var(--scenePrimary);
+  border-bottom: solid 3px var(--scenePrimary);
+}
+
+@media (max-width: 1361px) {
+  :root {
+    font-size: 12px;
+  }
+}
+@media (max-width: 1050px) {
+  :root {
+    font-size: 9px;
+  }
+  .text {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+@font-face {
+  font-family: Hedvig;
+  src: url("HedvigLettersSans-Regular.ttf");
+}
