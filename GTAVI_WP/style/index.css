@@ -60,13 +60,14 @@ img {
 }
 .date {
   font-size: 1.5rem;
+  text-align: right;
 }
 
 .sass {
   position: fixed;
   bottom: 1rem;
   right: 1rem;
-  opacity: 0.3;
+  opacity: 0.5;
 }
 .sass:hover {
   opacity: 1;
@@ -74,7 +75,7 @@ img {
 .sass:hover div {
   opacity: 1;
   width: 300px;
-  padding: 2rem;
+  padding: 1.5rem;
   border: 5px solid var(--sceneSecondary);
   transition: opacity 0.3s linear, width 0.3s linear, padding 0s linear,
     border 0s linear;
@@ -103,6 +104,7 @@ img {
   margin: 0;
   padding: 0;
   list-style: none;
+  font-size: 1.5rem;
 }
 
 .search {
@@ -155,7 +157,8 @@ img {
   :root {
     font-size: 9px;
   }
-  .text {
+  .text,
+  .date {
     flex-direction: column;
     text-align: center;
   }
