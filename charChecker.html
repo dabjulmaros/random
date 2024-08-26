@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Test</title>
+  </head>
+  <body>
+    <div>
+      <div>
+        <label for="input">Enter char:</label>
+        <input type="text" id="input" name="input" />
+      </div>
+      <div>
+        <label for="checkbox">Add spellcheck:</label>
+        <input type="checkbox" name="checkbox" id="checkbox" />
+        <button
+          type="button"
+          name="button"
+          id="button"
+          onclick="removeSpellCheck()"
+        >
+          remove spellcheck
+        </button>
+      </div>
+      <div id="output"></div>
+    </div>
+    <script>
+      function removeSpellCheck() {
+        input.removeAttribute("spellcheck");
+        checkbox.checked = false;
+      }
+      const input = document.querySelector("#input");
+      const checkbox = document.querySelector("#checkbox");
+      const output = document.querySelector("#output");
+      input.addEventListener("input", () => {
+        output.innerText = "";
+        for (let x in input.value) {
+          output.innerText += `${
+            input.value[x]
+          } code is ${input.value.charCodeAt(x)}\n`;
+        }
+      });
+      checkbox.addEventListener("input", () => {
+        output.innerText = "";
+        input.value = "";
+        input.setAttribute("spellcheck", checkbox.checked);
+      });
+    </script>
+    <style>
+      body {
+        display: flex;
+        flex-direction: column;
+        height: calc(100vh - 16px);
+        width: calc(100vw - 16px);
+        justify-content: center;
+        align-items: center;
+      }
+    </style>
+  </body>
+</html>
