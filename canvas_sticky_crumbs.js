@@ -9,6 +9,8 @@ div#left-side > div#sticky-container {
   top: 4.5rem;
 }
 */
+
+//javascript:
 (() => {
   const styleEle = document.createElement('style');
   styleEle.innerHTML = `div#wrapper > div.ic-app-nav-toggle-and-crumbs {
@@ -19,6 +21,6 @@ div#left-side > div#sticky-container {
 }
 div#left-side > div#sticky-container {
   top: 4.5rem;
-}`
-  document.head.appendChild(styleEle)
+}`;
+  document.head.appendChild(styleEle);
 })()
