@@ -3,6 +3,8 @@ window.onload = function (e) {
     const _current_user_id = document.head.innerHTML.match(/current_user_id":"(\d+)"/)[1];
     const bread = document.querySelectorAll("#breadcrumbs li");
 
+    if (!bread) return;
+
     let title = bread[1].innerText.match(/\w{3,}\d{4}/)[0];
 
     if (bread.length >= 4 && !bread[3].innerHTML.includes(_current_user_id)) {
