@@ -27,6 +27,12 @@ img.addEventListener("mouseup", e => {
   }
 })
 
+img.addEventListener('contextmenu', e => {
+  if (true) {
+    e.preventDefault();
+  }
+})
+
 img.addEventListener('wheel', e => {
   e.preventDefault();
 
@@ -56,7 +62,7 @@ function processMouse(e) {
   drawControl(e.offsetX, e.offsetY);
 
   if (e.buttons) {
-    drawMask(e.offsetX, e.offsetY, e.altKey);
+    drawMask(e.offsetX, e.offsetY, e.altKey || e.buttons == 2);
   }
 }
 
