@@ -13,6 +13,7 @@ let shiftDir = null;
 let shiftConstVal = 0;
 
 img.addEventListener('mousemove', e => {
+  e.preventDefault();
   processMouse(e);
 })
 
@@ -26,6 +27,10 @@ img.addEventListener("mouseup", e => {
     shiftDir = null;
   }
 })
+
+img.addEventListener('mouseleave', e => {
+  controlCtx.clearRect(0, 0, controlCanvas.width, controlCanvas.height);
+});
 
 img.addEventListener('contextmenu', e => {
   e.preventDefault();
