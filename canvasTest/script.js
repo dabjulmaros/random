@@ -28,9 +28,7 @@ img.addEventListener("mouseup", e => {
 })
 
 img.addEventListener('contextmenu', e => {
-  if (true) {
-    e.preventDefault();
-  }
+  e.preventDefault();
 })
 
 img.addEventListener('wheel', e => {
@@ -48,6 +46,10 @@ img.addEventListener('wheel', e => {
 });
 
 function processMouse(e) {
+
+  let x = e.offsetX;
+  let y = e.offsetY;
+
   if (e.shiftKey && shiftDir == null && e.buttons) {
     setShift = true;
     if (Math.abs(e.movementX) > Math.abs(e.movementY)) {
@@ -59,18 +61,6 @@ function processMouse(e) {
     }
   }
 
-  drawControl(e.offsetX, e.offsetY);
-
-  if (e.buttons) {
-    drawMask(e.offsetX, e.offsetY, e.altKey || e.buttons == 2);
-  }
-}
-
-
-function drawControl(x, y) {
-  controlCtx.clearRect(0, 0, controlCanvas.width, controlCanvas.height);
-  controlCtx.beginPath();
-
   if (setShift) {
     if (shiftDir == 'x') {
       y = shiftConstVal;
@@ -79,13 +69,22 @@ function drawControl(x, y) {
     }
   }
 
-  if (settings.tool == 0) {
-    controlCtx.arc(x, y, settings.size, 0, 2 * Math.PI);
-  } else if (settings.tool == 1) {
-    controlCtx.rect(x - settings.size / 2, y - settings.size / 2, settings.size, settings.size)
+  drawControl(x, y);
+
+  if (e.buttons) {
+    drawMask(x, y, e.altKey || e.buttons == 2);
   }
+}
+
+
+function drawControl(x, y) {
+  controlCtx.clearRect(0, 0, controlCanvas.width, controlCanvas.height);
+
+  setPath(controlCtx, x, y);
+
   controlCtx.stroke()
 }
+
 function drawMask(x, y, remove) {
   maskCtx.fillStyle = `rgba(255,255,255,1)`;
 
@@ -95,22 +94,16 @@ function drawMask(x, y, remove) {
     maskCtx.globalCompositeOperation = 'source-over';
   }
 
-  if (setShift) {
-    if (shiftDir == 'x') {
-      y = 0;
-      y = shiftConstVal;
-    } else if (shiftDir == 'y') {
-      x = 0;
-      x = shiftConstVal;
-    }
-  }
+  setPath(maskCtx, x, y);
 
-  maskCtx.beginPath();
-  if (settings.tool == 0) {
-    maskCtx.arc(x, y, settings.size, 0, 2 * Math.PI);
-  } else if (settings.tool == 1) {
-    maskCtx.rect(x - settings.size / 2, y - settings.size / 2, settings.size, settings.size);
-
-  }
   maskCtx.fill();
+}
+
+function setPath(ctx, x, y) {
+  ctx.beginPath();
+  if (settings.tool == 0) {
+    ctx.arc(x, y, settings.size, 0, 2 * Math.PI);
+  } else if (settings.tool == 1) {
+    ctx.rect(x - settings.size / 2, y - settings.size / 2, settings.size, settings.size)
+  }
 }
