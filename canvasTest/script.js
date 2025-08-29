@@ -56,11 +56,12 @@ function processMouse(e) {
   let y = e.offsetY;
 
   if (e.shiftKey && shiftDir == null && e.buttons) {
-    setShift = true;
     if (Math.abs(e.movementX) > Math.abs(e.movementY)) {
+      setShift = true;
       shiftDir = 'x';
       shiftConstVal = e.offsetY;
-    } else {
+    } else if (Math.abs(e.movementX) < Math.abs(e.movementY)) {
+      setShift = true
       shiftDir = 'y';
       shiftConstVal = e.offsetX;
     }

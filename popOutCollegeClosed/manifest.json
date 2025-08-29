@@ -1,0 +1,18 @@
+{
+  "manifest_version": 3,
+  "name": "College Closed Generator",
+  "version": "1.0",
+  "description": "Creates an ICS file to import into the calendar for the days the college is closed.",
+  "icons": {
+    "16": "images/16.png",
+    "32": "images/32.png",
+    "48": "images/48.png",
+    "128": "images/128.png"
+  },
+  "action": {
+    "default_popup": "action/popup.html"
+  },
+  "permissions": [
+    "storage"
+  ]
+}
