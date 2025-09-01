@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Copy Reply Quick</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <button id="popout" title="Pop Out To a New Window">🪟</button>
+  <div id='wrapper'>
+  </div>
+  <button title="Add" onclick="addNote()">🗒️</button>
+  <dialog id="dialog">
+    <p>
+      <label>
+        <h3>Title:</h3>
+        <input type="text" id="newTitle" />
+      </label>
+    </p>
+    <p>
+      <textarea id="newNote"></textarea>
+    </p>
+    <div><button title="Cancel" onclick="submitNote(this)">❌</button>
+      <button title="Add" onclick="submitNote(this)">✔️</button>
+    </div>
+  </dialog>
+</body>
+<script src="script.js"></script>
+
+</html>

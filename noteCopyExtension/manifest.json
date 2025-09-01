@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "College Closed Generator",
+  "name": "Copy Reply Quick",
   "version": "1.0",
-  "description": "Creates an ICS file to import into the calendar for the days the college is closed.",
+  "description": "Create and Copy Quick Replies.",
   "icons": {
     "16": "images/16.png",
     "32": "images/32.png",
@@ -11,5 +11,8 @@
   },
   "action": {
     "default_popup": "action/popup.html"
-  }
+  },
+  "permissions": [
+    "storage"
+  ]
 }

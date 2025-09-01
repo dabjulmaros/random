@@ -1,8 +1,20 @@
 const holder = document.getElementById('holder');
+const popout = document.getElementById("popout");
 
 document.getElementById("button").addEventListener("click", (e) => {
   createInviteFile()
 })
+
+if (location.href.includes("popout")) {
+  popout.remove();
+  document.title = "College Closed Generator"
+} else {
+  popout.addEventListener("click", (e) => {
+    window.open(location.href + "#popout", "", 'popup,menubar=no,location=no,toolbar=no,noopener=no,noreferrer=no,resizable=no,width=350,height=350')
+  })
+}
+
+
 const header = `BEGIN:VCALENDAR
 METHOD:REQUEST
 PRODID:MYSELF

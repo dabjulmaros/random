@@ -10,9 +10,13 @@
       color-scheme: light dark;
     }
 
+    html,
     body {
       min-width: 300px;
       min-height: 300px;
+    }
+
+    body {
       width: 100vw;
       height: 100vh;
       margin: 0;
@@ -36,6 +40,12 @@
       max-height: 4rem;
       height: 4rem;
       overflow: auto;
+    }
+
+    #popout {
+      position: absolute;
+      right: 5px;
+      top: 5px;
     }
 
     /* ===== Scrollbar CSS ===== */
@@ -64,6 +74,7 @@
 </head>
 
 <body>
+  <input type="button" id="popout" value="⇱" title="Pop Out To a New Window"></input>
   <div id='wrapper'>
     <div id='holder'></div>
     <input type="button" id="button" value="Generate .ICS"></input>

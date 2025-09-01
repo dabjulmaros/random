@@ -1,0 +1,122 @@
+* {
+  color-scheme: light dark;
+  font-family: monospace;
+}
+
+html,
+body {
+  min-width: 300px;
+  min-height: 600px;
+}
+
+body {
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  justify-content: center;
+}
+#wrapper,
+body,
+.section {
+  display: flex;
+  flex-direction: column;
+}
+
+body {
+  align-items: center;
+}
+
+#wrapper {
+  margin: 5px;
+  max-height: calc(100vh - 80px);
+  overflow: auto;
+}
+
+#popout {
+  position: absolute;
+  right: 5px;
+  top: 5px;
+}
+.section {
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+/* .section h2 {
+  
+} */
+.section .item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.section .item textarea {
+  max-width: 300px;
+  min-width: 300px;
+  margin-right: 25px;
+}
+
+.section .item textarea:disabled {
+  border-color: transparent;
+  background: none;
+  resize: none;
+  overflow: hidden;
+  max-height: 30px;
+  min-height: 30px;
+}
+button {
+  background: none;
+  border: solid 2px;
+  border-radius: 10px;
+  font-size: 25px;
+  padding: 5px;
+  margin: 0 5px;
+}
+
+dialog {
+  width: 300px;
+  max-width: 300px;
+  padding: 25px;
+  border: solid 2px;
+  border-radius: 10px;
+}
+
+dialog input,
+dialog textarea {
+  width: 100%;
+}
+dialog input {
+  font-size: 2rem;
+}
+dialog textarea {
+  resize: none;
+  height: 80px;
+}
+
+dialog div {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+/* ===== Scrollbar CSS ===== */
+/* https://codepen.io/stephenpaton-tech/full/JjRvGmY */
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #292929 #ffffff00;
+}
+
+/* Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+  width: 8px;
+}
+
+*::-webkit-scrollbar-track {
+  background: #ffffff00;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #292929;
+  border-radius: 10px;
+  border: 3px solid #ffffff;
+}
