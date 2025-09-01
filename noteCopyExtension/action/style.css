@@ -30,6 +30,7 @@ body {
   margin: 5px;
   max-height: calc(100vh - 80px);
   overflow: auto;
+  width: 460px;
 }
 
 #popout {
@@ -64,7 +65,7 @@ body {
   min-height: 30px;
 }
 button {
-  background: none;
+  background: auto;
   border: solid 2px;
   border-radius: 10px;
   font-size: 25px;
@@ -125,4 +126,71 @@ dialog div {
   background-color: #292929;
   border-radius: 10px;
   border: 3px solid #ffffff;
+}
+/* https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_snackbar */
+#toast {
+  visibility: hidden;
+  display: none;
+  min-width: 200px;
+  text-align: center;
+  border: solid 2px;
+  border-radius: 10px;
+  padding: 16px;
+  position: fixed;
+  z-index: 1;
+  left: 50%;
+  transform: translate(-50%, 0);
+  bottom: 30px;
+  font-size: 17px;
+}
+
+#toast.show {
+  visibility: visible;
+  display: block;
+  -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+  animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+@-webkit-keyframes fadein {
+  from {
+    bottom: 0;
+    opacity: 0;
+  }
+  to {
+    bottom: 30px;
+    opacity: 1;
+  }
+}
+
+@keyframes fadein {
+  from {
+    bottom: 0;
+    opacity: 0;
+  }
+  to {
+    bottom: 30px;
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes fadeout {
+  from {
+    bottom: 30px;
+    opacity: 1;
+  }
+  to {
+    bottom: 0;
+    opacity: 0;
+  }
+}
+
+@keyframes fadeout {
+  from {
+    bottom: 30px;
+    opacity: 1;
+  }
+  to {
+    bottom: 0;
+    opacity: 0;
+  }
 }

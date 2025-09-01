@@ -1,13 +1,10 @@
 const notes = [];
 
-chrome.storage.local.get(["myNotes"]).then((data) => {
-  notes.push(...data.myNotes)
-  for (const i in notes) {
-    createItem(notes[i][0], notes[i][1], i);
-  }
-});
+loadNotes();
 
 const wrapper = document.getElementById('wrapper');
+
+const toast = document.getElementById("toast");
 
 const dialog = document.querySelector('dialog');
 const newTitle = document.getElementById('newTitle');
@@ -31,28 +28,56 @@ if (location.href.includes("popout")) {
 function copyText(ele) {
   const textArea = ele.parentElement.querySelector('textarea');
   navigator.clipboard.writeText(textArea.value);
+  showToast();
 }
 
 function editText(ele) {
   const textArea = ele.parentElement.querySelector('textarea');
   textArea.disabled = !textArea.disabled
+  const nodeIndex = ele.parentElement.getAttribute('noteIndex');
+  let reload = false;
   if (textArea.disabled) {
-    notes[ele.parentElement.getAttribute('noteIndex')][1] = textArea.value;
-    storeNotes();
+    notes[nodeIndex][1] = textArea.value;
+    if (textArea.value === "") {
+      reload = true;
+      let temp = notes.splice(nodeIndex);
+      if (temp.length > 1) {
+        temp = temp.splice(1)
+        notes.push(...temp);
+      }
+    }
+    storeNotes(reload);
   }
 }
 
 function addNote() {
   dialog.showModal();
 }
-function storeNotes() {
-  chrome.storage.local.set({ myNotes: notes });
+
+function loadNotes() {
+  chrome.storage.local.get(["myNotes"]).then((data) => {
+    if (data?.myNotes) {
+      notes.push(...data.myNotes)
+      for (const i in notes) {
+        createItem(notes[i][0], notes[i][1], i);
+      }
+    }
+  });
+}
+
+async function storeNotes(reload = false) {
+  await chrome.storage.local.set({ myNotes: notes });
+  if (reload) {
+    notes.splice(0)
+    wrapper.innerHTML = "";
+    loadNotes();
+  }
 }
 
 function submitNote(ele) {
   if (ele.title === "Add") {
-    createItem(newTitle.value, newNote.value);
     notes.push([newTitle.value, newNote.value])
+    createItem(newTitle.value, newNote.value, notes.length - 1);
     storeNotes();
   }
   newTitle.value = "";
@@ -70,8 +95,7 @@ function createItem(_title, _value, _index) {
 
   const item = document.createElement('div');
   item.classList.add('item');
-  item.setAttribute("noteIndex", _index)
-  console.log(_index)
+  item.setAttribute("noteIndex", _index);
 
   const textArea = document.createElement('textarea');
   textArea.disabled = true;
@@ -96,4 +120,30 @@ function createItem(_title, _value, _index) {
 
   wrapper.appendChild(section);
 
+}
+
+function showToast() {
+  toast.classList.add("show");
+  setTimeout(() => toast.classList.remove("show"), 2900);
+}
+
+function exportData() {
+  chrome.storage.local.get(["myNotes"]).then((data) => {
+    if (data?.myNotes) {
+      let exportString = "";
+      for (const ele of data.myNotes) {
+        const title = JSON.stringify(ele[0]);
+        const data = JSON.stringify(ele[1]);
+        exportString += `${title.substring(1, title.length - 1).replaceAll('\\"', '"')},${data.substring(1, data.length - 1).replaceAll('\\"', '"')}.\n\n`
+      }
+      console.log(exportString.trim());
+    }
+  });
+}
+
+function importData(csv) {
+  let data = csv.trim().split(".\n\n");
+  data = data.map(e => e.split(','));
+  data[data.length - 1][1] = data[data.length - 1][1].substr(0, data[data.length][1].length - 1);
+  chrome.storage.local.set({ myNotes: data });
 }
