@@ -1,0 +1,178 @@
+* {
+  color-scheme: light dark;
+  font-family: monospace;
+}
+
+html,
+body {
+  min-width: 500px;
+  min-height: 600px;
+  font-size: 1rem;
+}
+
+body {
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  justify-content: center;
+}
+#wrapper,
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+body {
+  align-items: center;
+}
+
+#wrapper {
+  margin: 5px;
+  /* max-height: calc(100vh - 80px); */
+  overflow: auto;
+  width: 100%;
+}
+hr {
+  width: 95%;
+}
+.windowGroup {
+}
+.tabElement {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin: 5px;
+}
+.tabElement .audio {
+  height: 20px;
+  width: 20px;
+  line-height: 0;
+  margin: 0 5px;
+  display: flex;
+  align-items: center;
+}
+.tabElement .icon {
+  width: 20px;
+  height: 20px;
+  margin: 0 5px;
+}
+.tabElement .title {
+  margin: 0 5px;
+  max-width: 80%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.wrapper hr:last-child {
+  display: none;
+}
+.popoutHolder {
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  width: 50px;
+  height: 25px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.popoutHolder.popped {
+  justify-content: flex-end;
+}
+button {
+  font-size: 25px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 5px;
+  padding: 0;
+  line-height: 0;
+  width: 0;
+}
+.popoutHolder button {
+  position: relative;
+  transition:
+    font-size 0.1s,
+    left 0.1s,
+    top 0.1s;
+}
+button:hover {
+  font-size: 28px;
+}
+button:active {
+  top: 1px;
+  left: 1px;
+}
+
+#toast {
+  visibility: hidden;
+  background-color: light-dark(#fff, #1c1b22);
+  display: none;
+  min-width: 200px;
+  text-align: center;
+  border: solid 2px;
+  border-radius: 10px;
+  padding: 16px;
+  position: fixed;
+  z-index: 1;
+  left: 50%;
+  transform: translate(-50%, 0);
+  bottom: 30px;
+  font-size: 17px;
+}
+
+#toast.show {
+  visibility: visible;
+  display: block;
+  -webkit-animation:
+    fadein 0.5s,
+    fadeout 0.5s 2.5s;
+  animation:
+    fadein 0.5s,
+    fadeout 0.5s 2.5s;
+}
+
+@-webkit-keyframes fadein {
+  from {
+    bottom: 0;
+    opacity: 0;
+  }
+  to {
+    bottom: 30px;
+    opacity: 1;
+  }
+}
+
+@keyframes fadein {
+  from {
+    bottom: 0;
+    opacity: 0;
+  }
+  to {
+    bottom: 30px;
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes fadeout {
+  from {
+    bottom: 30px;
+    opacity: 1;
+  }
+  to {
+    bottom: 0;
+    opacity: 0;
+  }
+}
+
+@keyframes fadeout {
+  from {
+    bottom: 30px;
+    opacity: 1;
+  }
+  to {
+    bottom: 0;
+    opacity: 0;
+  }
+}
