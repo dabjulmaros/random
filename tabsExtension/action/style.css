@@ -51,6 +51,9 @@ hr {
   display: flex;
   align-items: center;
 }
+.tabElement .audio.point {
+  cursor: pointer;
+}
 .tabElement .icon {
   width: 20px;
   height: 20px;
@@ -62,6 +65,7 @@ hr {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  cursor: pointer;
 }
 #wrapper hr:last-child {
   display: none;

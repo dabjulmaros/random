@@ -24,8 +24,8 @@ function showToast(text = "") {
 }
 
 async function loadTabs() {
-  tabs = {};
   const _tabs = await chrome.tabs.query({});
+  tabs = {};
   for (let t of _tabs) {
     if (tabs[t.windowId]) {
       tabs[t.windowId].push(t);
@@ -55,6 +55,7 @@ function showTabs() {
         } else {
           audio.innerText = '🔊'
         }
+        audio.classList.add('point')
         const muted = !t.mutedInfo.muted;
         audio.addEventListener('click', async (e) => {
           e.stopPropagation();
