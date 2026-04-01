@@ -63,7 +63,7 @@ hr {
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-.wrapper hr:last-child {
+#wrapper hr:last-child {
   display: none;
 }
 .popoutHolder {
