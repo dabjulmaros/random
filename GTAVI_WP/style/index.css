@@ -8,7 +8,9 @@ body {
   overflow: hidden;
   color: var(--color);
   font-family: Hedvig;
+  user-select: none;
 }
+a,
 a:visited {
   color: var(--color);
 }
@@ -77,7 +79,10 @@ img {
   width: 300px;
   padding: 1.5rem;
   border: 5px solid var(--sceneSecondary);
-  transition: opacity 0.3s linear, width 0.3s linear, padding 0s linear,
+  transition:
+    opacity 0.3s linear,
+    width 0.3s linear,
+    padding 0s linear,
     border 0s linear;
 }
 .sass > div {
@@ -90,7 +95,10 @@ img {
   background: var(--scenePrimary);
   padding: 0;
   border: 0px solid var(--sceneSecondary);
-  transition: opacity 0.3s linear, width 0.3s linear, padding 0s linear 0.3s,
+  transition:
+    opacity 0.3s linear,
+    width 0.3s linear,
+    padding 0s linear 0.3s,
     border 0s linear 0.3s;
   border-radius: 1rem;
   opacity: 0;
@@ -166,4 +174,9 @@ img {
 @font-face {
   font-family: Hedvig;
   src: url("HedvigLettersSans-Regular.ttf");
+}
+
+@view-transition {
+  navigation: auto;
+  types: slide;
 }
