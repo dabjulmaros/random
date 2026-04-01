@@ -1,0 +1,25 @@
+{
+  "manifest_version": 3,
+  "name": "AudibleDarkMode",
+  "version": "1.0",
+  "description": "Change Colors for audible web player",
+  "icons": {
+    "16": "images/emoji_16.png",
+    "32": "images/emoji_32.png",
+    "48": "images/emoji_48.png",
+    "128": "images/emoji_128.png"
+  },
+  "content_scripts": [
+    {
+      "js": [
+        "scripts/content.js"
+      ],
+      "matches": [
+        "https://www.audible.com/webplayer*"
+      ]
+    }
+  ],
+  "permissions": [
+    "storage"
+  ]
+}
