@@ -13,6 +13,19 @@ const wrapper = document.querySelector('#wrapper');
 const toast = document.getElementById("#toast");
 let tabs = {};
 
+let debounce;
+const search = document.querySelector('input');
+const filterIcon = document.querySelector('.filter');
+
+filterIcon.addEventListener('click', e => {
+  search.value = "";
+  filterTabs();
+})
+search.addEventListener('input', e => {
+  clearTimeout(debounce);
+  debounce = setTimeout(filterTabs, 300);
+})
+
 
 document.querySelector('#reload').onclick = () => { loadTabs() };
 
@@ -34,26 +47,52 @@ async function loadTabs() {
     }
   }
   document.title = `${_tabs.length} Tabs`
-  showTabs();
+  filterTabs()
 }
-function showTabs() {
+
+function filterTabs() {
+  const input = search.value;
+  let filter = JSON.parse(JSON.stringify(tabs));
+  if (input != "") {
+    filterIcon.classList.add('off');
+    for (const w in filter) {
+      for (const t of filter[w]) {
+        // console.log(t);>
+        if (!(t.title?.includes(input) || t.url?.includes(input))) {
+          t["dontShow"] = true;
+          console.log(t);
+        }
+      }
+    }
+  } else {
+    filterIcon.classList.remove('off');
+  }
+  showTabs(filter);
+}
+
+function showTabs(_tabs = tabs) {
   wrapper.innerHTML = "";
-  for (const w in tabs) {
+  for (const w in _tabs) {
     const span = document.createElement('span');
     span.classList.add('windowGroup');
-    for (const t of tabs[w]) {
+    for (const t of _tabs[w]) {
+      if (t.dontShow) {
+        continue;
+      }
       // console.log(t);
       const holderDiv = document.createElement('div');
       holderDiv.classList.add('tabElement');
 
       // span audible/ muted
+      const audioWrapper = document.createElement('span');
+      audioWrapper.classList.add("audioWrapper");
       const audio = document.createElement('span');
       audio.classList.add("audio");
       if (t.audible) {
         if (t.mutedInfo.muted) {
-          audio.innerText = '🔇'
+          audio.classList.add('mute')
         } else {
-          audio.innerText = '🔊'
+          audio.classList.add('speaker')
         }
         audio.classList.add('point')
         const muted = !t.mutedInfo.muted;
@@ -92,7 +131,8 @@ function showTabs() {
 
       //only add if the tab has a title or url
       if (title.innerText) {
-        holderDiv.appendChild(audio);
+        audioWrapper.appendChild(audio)
+        holderDiv.appendChild(audioWrapper);
         holderDiv.appendChild(icon);
         holderDiv.appendChild(title);
         span.appendChild(holderDiv);
