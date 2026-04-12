@@ -40,6 +40,7 @@ async function loadTabs() {
   const _tabs = await chrome.tabs.query({});
   tabs = {};
   for (let t of _tabs) {
+    // console.log(t);
     if (tabs[t.windowId]) {
       tabs[t.windowId].push(t);
     } else {
@@ -60,7 +61,7 @@ function filterTabs() {
         // console.log(t);>
         if (!(t.title?.includes(input) || t.url?.includes(input))) {
           t["dontShow"] = true;
-          console.log(t);
+          // console.log(t);
         }
       }
     }
@@ -123,18 +124,33 @@ function showTabs(_tabs = tabs) {
       }
       title.addEventListener('click', e => {
         e.stopPropagation();
-        console.log(w, t.id)
+        // console.log(w, t.id)
         chrome.windows.update(parseInt(w), { focused: true }, () => {
           chrome.tabs.update(t.id, { active: true });
         });
       });
 
+      //last accessed
+      const time = document.createElement('span');
+      time.classList.add("time");
+      time.dataset.lastAccessed = t.lastAccessed;
+      time.addEventListener('mouseover', e => {
+        e.stopPropagation();
+        const target = e.target;
+        // console.log(target.dataset.lastAccessed);
+        const dateTime = new Date(parseInt(target.dataset.lastAccessed));
+        target.title = dateTime.toLocaleString();
+        // target.title = new Date(parseInt(target.dataset.lastAccessed)).toLocaleString();
+        // console.log(new Date(target.dataset.lastAccessed).toLocaleString());
+      })
+
       //only add if the tab has a title or url
-      if (title.innerText) {
+      if (title.innerText && title.innerText != document.title) {
         audioWrapper.appendChild(audio)
         holderDiv.appendChild(audioWrapper);
         holderDiv.appendChild(icon);
         holderDiv.appendChild(title);
+        holderDiv.appendChild(time)
         span.appendChild(holderDiv);
       }
     }
