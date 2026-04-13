@@ -158,7 +158,7 @@ function showTabs(_tabs = tabs) {
         const dateTime = new Date(parseInt(target.dataset.lastAccessed));
         const timeDiff = calcTimeDiff(dateTime);
 
-        tooltip.innerText = `Last viewed:\n${timeDiff} ago,\n${dateTime.toLocaleString()}`;
+        tooltip.innerHTML = `<div><span class="timeEllapsed"></span>${timeDiff} ago,</div><div><span class="timeDate"></span>${dateTime.toLocaleString()}</div>`;
         tooltip.style.left = `-${tooltip.offsetWidth}px`;
         tooltip.style.top = `calc(-${tooltip.offsetHeight}px / 3)`;
 
@@ -193,6 +193,15 @@ function calcTimeDiff(lastAccessed) {
   const diff = now - lastAccessed;
   let seconds = Math.floor(diff / 1000);
   // console.log(seconds);
+  if (seconds < 60) {
+    return "A few seconds";
+  }
+  if (seconds < 180) {
+    return "A few minutes";
+  }
+  // if (seconds < 60 * 60) {
+  //   return `${leadingZero(Math.floor(seconds / 60))} minutes`
+  // }
   const years = Math.floor(seconds / (60 * 60 * 24 * 30 * 12));
   if (years > 0) {
     seconds = seconds - (60 * 60 * 24 * 30 * 12 * years);
@@ -213,7 +222,13 @@ function calcTimeDiff(lastAccessed) {
   if (minutes > 0) {
     seconds = seconds - (60 * minutes);
   }
-  return `${years > 1 ? `${years} years, ` : ''}${months > 1 ? `${months} months, ` : ''}${days > 1 ? `${days} days, ` : ''}${hours > 1 ? `${hours}h:` : ''}${minutes > 1 ? `${minutes}m:` : ''}${seconds}s`;
+  return `${years ? `${years} years, ` : ''}${months ? `${months} months, ` : ''}${days ? `${days} days, ` : ''}${hours ? `${leadingZero(hours)}` : ''}${hours && minutes ? "h" : hours ? " hours" : ""}${minutes && hours ? ":" : ""}${minutes ? `${leadingZero(minutes)}` : ''}${hours && minutes ? "m" : minutes ? " minutes" : ""}`;
+}
+function leadingZero(_num) {
+  if (_num < 10) {
+    return `0${_num}`
+  }
+  return _num
 }
 chrome.tabs.onActivated.addListener(loadTabs);
 chrome.tabs.onUpdated.addListener(loadTabs);
