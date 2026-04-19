@@ -1,0 +1,28 @@
+{
+  "manifest_version": 3,
+  "name": "SpeechSynthesisExt",
+  "version": "0.1",
+  "description": "Tap into the browser speech synthesis api",
+  "icons": {
+    "16": "images/emoji_16.png",
+    "32": "images/emoji_32.png",
+    "48": "images/emoji_48.png",
+    "128": "images/emoji_128.png"
+  },
+  "action": {
+    "default_popup": "action/popup.html"
+  },
+  "content_scripts": [
+    {
+      "js": [
+        "scripts/content.js"
+      ],
+      "matches": [
+        "*"
+      ]
+    }
+  ],
+  "permissions": [
+    "storage"
+  ]
+}
