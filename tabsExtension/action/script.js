@@ -120,6 +120,13 @@ function showTabs(_tabs = tabs) {
         audio.addEventListener("click", async (e) => {
           e.stopPropagation();
           try {
+            if (muted) {
+              audio.classList.add("mute");
+              audio.classList.remove("speaker");
+            } else {
+              audio.classList.add("speaker");
+              audio.classList.remove("mute");
+            }
             await chrome.tabs.update(t.id, { muted });
           } catch (e) {
             console.error(e);
@@ -158,7 +165,7 @@ function showTabs(_tabs = tabs) {
         e.stopPropagation();
         // console.log(w, t.id)
         try {
-          chrome.windows.update(parseInt(w), { focused: true }, () => {
+          chrome.windows.update(Number(w), { focused: true }, () => {
             chrome.tabs.update(t.id, { active: true });
           });
         } catch (error) {

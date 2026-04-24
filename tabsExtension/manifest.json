@@ -10,12 +10,10 @@
     "128": "images/emoji_128.png"
   },
   "permissions": [
-    "tabGroups"
+    
+    "tabs"
   ],
-  "host_permissions": [
-    "http://*/*",
-    "https://*/*"
-  ],
+
   "action": {
     "default_popup": "action/popup.html"
   }
