@@ -1,7 +1,7 @@
 # TODO
 
 - [ ] Rearrange list
-- [ ] Edit titles
+- [X] Edit titles
 - [ ] Polish Export Import
-- [ ] Polish UI
+- [X] Polish UI
 - [ ] Add quick nav based on titles

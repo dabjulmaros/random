@@ -119,11 +119,12 @@ function submitNote(ele) {
   
     if (newNote.value === "") {
       reload = true;
-      let temp = notes.splice(index);
-      if (temp.length > 1) {
-        temp = temp.splice(1);
-        notes.push(...temp);
-      }
+      notes.splice(index,1);
+      // let temp = notes.splice(index);
+      // if (temp.length > 1) {
+      //   temp = temp.splice(1);
+      //   notes.push(...temp);
+      // }
     }
   }
   storeNotes(reload);
@@ -198,12 +199,18 @@ function exportData() {
   });
 }
 
-function importData(csv) {
+async function importData(csv) {
   let data = csv.trim().split(".\n\n");
-  data = data.map((e) => e.split(","));
-  data[data.length - 1][1] = data[data.length - 1][1].substr(
-    0,
-    data[data.length][1].length - 1,
-  );
-  chrome.storage.local.set({ myNotes: data });
+  data = data.map((e) => {
+    const d = e.split(",");
+    const title = d[0];
+    d.shift();
+    const body = d.join(',');
+    return[title,body];
+  });
+  
+  notes.splice(0);
+  wrapper.innerHTML = "";
+  await chrome.storage.local.set({ myNotes: data });
+  loadNotes();
 }

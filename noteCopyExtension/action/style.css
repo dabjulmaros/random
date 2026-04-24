@@ -8,6 +8,7 @@
   --scrollbar-thumb: light-dark(#00000044, #ffffff44);
   --scrollbar-track: #ffffff00;
   --overlay-dark: light-dark(#00000088, #00000044);
+  --b-radius:10px;
 }
 
 /* CSS Reset */
@@ -80,7 +81,6 @@ body {
   min-height: 50px;
 }
 .section .item textarea {
-  width: max-content;
   min-width: 300px;
   width: calc(100% - 80px);
 }
@@ -120,7 +120,7 @@ button {
   align-items: center;
   padding: 5px;
   margin: 0 5px;
-  border-radius: 10px;
+  border-radius: var(--b-radius);
   transition: background-color 0.2s ease;
 }
 button:hover {
@@ -159,7 +159,7 @@ dialog {
   height: calc(90vh - 50px);
   padding: 25px;
   border: solid 2px;
-  border-radius: 10px;
+  border-radius: var(--b-radius);
   margin: auto;
 }
 dialog::backdrop {
@@ -185,15 +185,25 @@ dialog textarea {
   background: none;
   border-bottom: solid 2px;
   margin: 1rem;
+  padding: 12px 12px 10px 12px;
 }
+
+dialog input:focus,dialog input:focus-visible
+dialog textarea:focus,dialog textarea:focus-visible{
+  border: solid 2px var(--focus-color);
+  border-radius:var(--b-radius);
+  outline-offset: 2px;
+  outline: var(--focus-color);
+  padding: 10px;
+}
+
 dialog input {
   font-size: 2rem;
 }
 dialog textarea {
   resize: vertical;
-  height: calc(90vh - 220px - 5rem);
-  max-height: calc(90vh - 220px - 5rem);
-  padding: 5px;
+  height: calc(90vh - 230px - 7rem);
+  max-height: calc(90vh - 230px - 7rem);
 }
 
 dialog div {
@@ -214,7 +224,7 @@ dialog div {
 
 *::-webkit-scrollbar-thumb {
   background-color: var(--scrollbar-thumb);
-  border-radius: 10px;
+  border-radius:var(--b-radius);
   border: 3px solid light-dark(#ffffff, #000000);
 }
 /* https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_snackbar */
@@ -225,7 +235,7 @@ dialog div {
   min-width: 200px;
   text-align: center;
   border: solid 2px;
-  border-radius: 10px;
+  border-radius: var(--b-radius);
   padding: 16px;
   position: fixed;
   z-index: 1;
