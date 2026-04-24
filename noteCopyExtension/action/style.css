@@ -1,4 +1,5 @@
 :root {
+  --bg-color:light-dark(#f0f0f0,#121212);
   --accent: light-dark(#2e7d32, #66bb6a);
   --accent-hover: light-dark( #81c78488,#1b5e2088);
   --cancel-gray: #666;
@@ -24,6 +25,7 @@
 html {
   color-scheme: light dark;
   font-family: monospace;
+  background-color: var(--bg-color);
 }
 body {
   min-width: 500px;
@@ -33,21 +35,22 @@ body {
 body {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   justify-content: flex-start;
 }
 #wrapper,
 .section {
   display: flex;
   flex-direction: column;
+  align-items: center;
 }
 
 #wrapper {
-  margin: 5px;
   max-height: calc(100vh - 10px);
   overflow: auto;
-  min-width: 460px;
+  padding: 5px;
   padding-bottom: 80px;
+  width: 100%;
 }
 #createNote {
   position: absolute;
@@ -55,9 +58,9 @@ body {
   width: 100%;
   height: 80px;
   display: flex;
-  justify-content: center;
   align-items: center;
-  background: linear-gradient(to bottom, light-dark(#ffffff11, #00000011) 10%, light-dark(#ffffff88, #00000088) 30%, light-dark(#ffffff, #000000) 60%)
+  background: linear-gradient(to bottom, light-dark(#f0f0f011, #12121211) 10%, light-dark(#f0f0f088, #12121288) 30%, var(--bg-color) 60%);
+  justify-content: center;
 }
 
 #popout {
@@ -68,6 +71,7 @@ body {
 .section {
   align-items: flex-start;
   justify-content: flex-start;
+  padding-left: 50px;
 }
 .section h2 {
   margin: 1rem 0 0.5rem 0;
@@ -249,11 +253,18 @@ dialog div {
   visibility: visible;
   display: block;
   -webkit-animation:
-    fadein 0.5s,
-    fadeout 0.5s 2.5s;
+    fadein 0.5s;
   animation:
-    fadein 0.5s,
-    fadeout 0.5s 2.5s;
+    fadein 0.5s;
+}
+#toast.hide{
+  visibility: visible;
+  display: block;
+  -webkit-animation:
+    fadeout 0.5s;
+  animation:
+    fadeout 0.5s;
+  
 }
 
 @-webkit-keyframes fadein {

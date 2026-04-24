@@ -5,6 +5,7 @@ loadNotes();
 const wrapper = document.getElementById("wrapper");
 
 const toast = document.getElementById("toast");
+let toastTimer;
 
 const dialog = document.querySelector("dialog");
 const newTitle = document.getElementById("newTitle");
@@ -14,19 +15,20 @@ const submitButton = document.getElementById("submitButton");
 
 dialog.addEventListener("click", (e) => {
   const rect = dialog.getBoundingClientRect();
-  const isInside = e.clientX >= rect.left && 
-                   e.clientX <= rect.right && 
-                   e.clientY >= rect.top && 
-                   e.clientY <= rect.bottom;
-  
+  const isInside =
+    e.clientX >= rect.left &&
+    e.clientX <= rect.right &&
+    e.clientY >= rect.top &&
+    e.clientY <= rect.bottom;
+
   if (!isInside) {
     dialog.close();
   }
 });
 
-document.querySelector('button[title="Create Note"]').onclick = () => addNote();
-document.querySelector('button[title="Cancel"]').onclick = () =>
-  submitNote(document.querySelector('button[title="Cancel"]'));
+document.getElementById("createNoteBtn").onclick = () => addNote();
+document.getElementById("cancelButton").onclick = () =>
+  submitNote(document.getElementById("cancelButton"));
 submitButton.onclick = () => submitNote(submitButton);
 
 const popout = document.getElementById("popout");
@@ -38,7 +40,7 @@ if (location.href.includes("popout")) {
     window.open(
       location.href + "#popout",
       "",
-      "popup,menubar=no,location=no,toolbar=no,noopener=no,noreferrer=no,resizable=no,width=550,height=650",
+      "popup,menubar=no,location=no,toolbar=no,noopener,noreferrer,resizable=no,width=550,height=650",
     );
     window.close();
   });
@@ -103,12 +105,12 @@ async function storeNotes(reload = false) {
 
 function submitNote(ele) {
   let reload = false;
-  
+
   if (ele.title === "Add") {
     notes.push([newTitle.value, newNote.value]);
     createItem(newTitle.value, newNote.value, notes.length - 1);
   } else if (ele.title === "Edit") {
-    const index = submitButton.getAttribute("noteIndex");
+    const index = parseInt(submitButton.getAttribute("noteIndex"));
     notes[index] = [newTitle.value, newNote.value];
     submitButton.removeAttribute("noteIndex");
     const item = document.querySelector(
@@ -116,10 +118,10 @@ function submitNote(ele) {
     ).parentElement;
     item.querySelector("h2").innerText = newTitle.value;
     item.querySelector("textarea").value = newNote.value;
-  
+
     if (newNote.value === "") {
       reload = true;
-      notes.splice(index,1);
+      notes.splice(index, 1);
       // let temp = notes.splice(index);
       // if (temp.length > 1) {
       //   temp = temp.splice(1);
@@ -157,7 +159,7 @@ function createItem(_title, _value, _index) {
   });
 
   textArea.addEventListener("click", () => {
-    console.log(textArea.readOnly);
+    // console.log(textArea.readOnly);
     if (textArea.readOnly) {
       copyText(textArea);
     }
@@ -166,7 +168,8 @@ function createItem(_title, _value, _index) {
   const editButton = document.createElement("button");
   editButton.title = "Edit";
   editButton.className = "icon-btn";
-  editButton.innerHTML = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>';
+  editButton.innerHTML =
+    '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>';
   editButton.onclick = () => editText(editButton, _index);
 
   item.appendChild(textArea);
@@ -179,10 +182,15 @@ function createItem(_title, _value, _index) {
   wrapper.appendChild(section);
 }
 
-function showToast(text="Copied!") {
+function showToast(text = "Copied!") {
   toast.classList.add("show");
-  toast.innerText=text;
-  setTimeout(() => toast.classList.remove("show"), 2900);
+  toast.innerText = text;
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => {
+    toast.classList.remove("show");
+    toast.classList.add("hide");
+    setTimeout(()=>toast.classList.remove("hide"),490);
+  }, 2900);
 }
 
 function exportData() {
@@ -205,10 +213,10 @@ async function importData(csv) {
     const d = e.split(",");
     const title = d[0];
     d.shift();
-    const body = d.join(',');
-    return[title,body];
+    const body = d.join(",");
+    return [title, body];
   });
-  
+
   notes.splice(0);
   wrapper.innerHTML = "";
   await chrome.storage.local.set({ myNotes: data });
