@@ -27,12 +27,10 @@ html {
   font-family: monospace;
   background-color: var(--bg-color);
 }
+
 body {
   min-width: 500px;
   min-height: 600px;
-}
-
-body {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -192,7 +190,7 @@ dialog textarea {
   padding: 12px 12px 10px 12px;
 }
 
-dialog input:focus,dialog input:focus-visible
+dialog input:focus,dialog input:focus-visible,
 dialog textarea:focus,dialog textarea:focus-visible{
   border: solid 2px var(--focus-color);
   border-radius:var(--b-radius);
