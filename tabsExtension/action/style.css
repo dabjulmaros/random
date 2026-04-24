@@ -79,6 +79,7 @@ input {
   /* max-height: calc(100vh - 80px); */
   overflow: auto;
   width: 100%;
+  min-height: 5rem;
 }
 hr {
   width: 95%;
@@ -224,11 +225,11 @@ hr {
   opacity: 1;
 }
 
-#wrapper .windowGroup:first-child .tabElement:first-child .time .timeTooltip {
-  top: 0px !important;
-}
 #wrapper .windowGroup:last-of-type .tabElement:last-of-type .time .timeTooltip {
   top: -3rem !important;
+}
+#wrapper .windowGroup:first-child .tabElement:first-child .time .timeTooltip {
+  top: 0px !important;
 }
 
 #wrapper hr:last-child {
